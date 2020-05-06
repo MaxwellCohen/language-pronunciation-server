@@ -1,5 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
 const rp = require('request-promise');
-const uuidv4 = require('uuid/v4');
 const get = require('lodash/get');
 
 var key_var = 'TRANSLATOR_TEXT_SUBSCRIPTION_KEY';

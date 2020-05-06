@@ -1,4 +1,4 @@
-// To install dependencies, run: npm install
+
 const xmlbuilder = require('xmlbuilder');
 // request-promise has a dependency on request
 const rp = require('request-promise');
@@ -17,7 +17,7 @@ function makebaseobject(options, header) {
       'User-Agent': 'YOUR_RESOURCE_NAME',
       ...header,
     }
-  }
+  };
 }
 
 

@@ -32,9 +32,6 @@ api.get('/translaterate', (req, res) => {
 // query params text, from, to
 // http://localhost:3000/api/translate?text=你好&from=Zh&to=en
 api.get('/translate', (req, res) => {
-  const emptyState = {
-    translations:[]
-  };
   translate(req.query).then(
     (d) => res.send(d),
     (d) => res.send(d));

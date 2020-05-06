@@ -47,7 +47,6 @@ function stt(audioConfig, speechLanguage, translateLangue, cb) {
   recognizer.recognizeOnceAsync(
     function (result) {
 
-      console.log(result);
       cb(null, {
         text: result.privText,
         // translation: result.privTranslations.privMap.getProperty(translateLangue.substring(0,2)) || ''
