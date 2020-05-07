@@ -1,25 +1,44 @@
-const {tts, ttsVoices} = require('./TTS');
-const {translaterate, getLanguageSupport, translate} = require('./translate');
-const {token} = require('./token');
+const {
+  tts,
+  ttsVoices
+} = require('./TTS');
+const {
+  translaterate,
+  getLanguageSupport,
+  translate
+} = require('./translate');
+const {
+  token
+} = require('./token');
 
 const express = require('express');
 const api = express.Router();
 
 
 api.get('/tts', (req, res) => {
-  res.set('content-type', 'audio/wav');
-  res.set('accept-ranges', 'bytes');
+
+  res.chunkedEncoding = true;
   const TTSRequest = tts(req.query.text, req.query.lang, req.query.voice);
+  var buffer = [];
   TTSRequest.on('data', (chunk) => {
-    res.write(chunk);
+    buffer.push(chunk);
   });
   TTSRequest.on('end', () => {
-    res.end();
+    buffer = Buffer.concat(buffer);
+    const bufferString = buffer.toString('base64');
+    // res.set('content-type', 'audio/wav');
+    res.set('accept', 'text/html');
+    // res.set('content-lenght', buffer.length)
+    const audio = `data:audio/wav;base64,${bufferString}`;
+    // console.log(buffer)
+    res.send(audio);
   });
 });
 
 api.get('/token', (req, res) => {
-  token().then((token) => res.send({token}));
+  token().then((token) => res.send({
+    token
+  }));
 });
 
 // query params text, language, fromScript, toScript
@@ -50,7 +69,7 @@ api.get('/languageSuportData', (req, res) => {
 
   const cleanUPName = (Name, Gender, locale) => {
     let name = Name.match(/\((.*), (.*)\)/);
-    if(name) {
+    if (name) {
       locale = locale.split('-')[1];
       return `${name[2]} (${Gender} - ${locale})`;
     }
@@ -59,7 +78,12 @@ api.get('/languageSuportData', (req, res) => {
 
   Promise.all([ttsVoices(), getLanguageSupport()]).then(([voices, languageSupport]) => {
     // get the voices grouped by languag
-    const voiceObject = voices.reduce( (acc, {Name, Gender, ShortName, Locale}) => {
+    const voiceObject = voices.reduce((acc, {
+      Name,
+      Gender,
+      ShortName,
+      Locale
+    }) => {
       const lang = Locale.split('-')[0];
       acc[lang] = acc[lang] || [];
       let name = cleanUPName(Name, Gender, Locale);
@@ -71,11 +95,11 @@ api.get('/languageSuportData', (req, res) => {
     }, {});
     const languageObject = Object.keys(languageSupport.translation).reduce((acc, key) => {
       const simpleLang = key.split('-')[0];
-      if(voiceObject[simpleLang]) {
+      if (voiceObject[simpleLang]) {
         acc[key] = {
           ...languageSupport.translation[key],
-          code:key,
-          voices : voiceObject[simpleLang]
+          code: key,
+          voices: voiceObject[simpleLang]
         };
       }
       return acc;
