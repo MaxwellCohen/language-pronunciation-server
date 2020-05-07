@@ -1,19 +1,11 @@
 {
     "$schema": "http://json.schemastore.org/proxies",
     "proxies": {
-        "proxy1": {
+        "ng": {
             "matchCondition": {
-                "methods": [ "GET" ],
-                "route": "/{*restOfPath}"
+                "route": "/{*rest}"
             },
-            "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{*restOfPath}"
-        },
-        "proxy2": {
-            "matchCondition": {
-                "methods": [ "GET" ],
-                "route": "/"
-            },
-            "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/index.html"
+            "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{rest}"
         }
     }
 }
