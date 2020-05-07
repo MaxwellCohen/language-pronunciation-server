@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.use('/api', api);
 
-app.get('/api/hello', (req, res) => res.send('Hello World!'));
+app.get('/api/hello', (req, res) => res.send('Hello World!2'));
 
 module.exports = createHandler(app);
 
