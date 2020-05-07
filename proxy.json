@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "proxy1": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/{*restOfPath}"
+            },
+            "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{*restOfPath}"
+        }
+    }
+}
