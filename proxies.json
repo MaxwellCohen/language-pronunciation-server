@@ -7,6 +7,13 @@
                 "route": "/{*restOfPath}"
             },
             "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{*restOfPath}"
+        },
+        "proxy2": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/"
+            },
+            "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/index.html"
         }
     }
 }
