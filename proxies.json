@@ -1,29 +1,17 @@
 {
   "$schema": "http://json.schemastore.org/proxies",
   "proxies": {
-    "root": {
-      "matchCondition": {
-        "route": "/",
-        "methods": ["GET"]
+      "root": {
+          "matchCondition": {
+              "route": "/"
+          },
+          "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/index.html"
       },
-      "debug": true,
-      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/index.html"
-    },
-    "js": {
-      "matchCondition": {
-        "route": "/{filename}.js",
-        "methods": ["GET"]
+      "ng": {
+          "matchCondition": {
+              "route": "/{rest}"
+          },
+          "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{rest}"
       },
-      "debug": true,
-      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}.js"
-    },
-    "css": {
-      "matchCondition": {
-        "route": "/{filename}.css",
-        "methods": ["GET"]
-      },
-      "debug": true,
-      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}.css"
-    }
   }
 }
