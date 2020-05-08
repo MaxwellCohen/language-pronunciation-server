@@ -17,7 +17,7 @@
       "matchCondition": {
         "route": "/api/{*all}"
       },
-      "backendUri": "https://language-pronunciation.azurewebsites.net/api/{*all}"
+      "backendUri": "https://language-pronunciation.azurewebsites.net/api/{all}"
     }
   }
 }
