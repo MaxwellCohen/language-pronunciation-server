@@ -24,14 +24,6 @@
       },
       "debug": true,
       "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}.css"
-    },
-    "api": {
-      "matchCondition": {
-        "route": "/api/{*all}",
-        "methods": ["GET"]
-      },
-      "debug": true,
-      "backendUri": "https://language-pronunciation.azurewebsites.net/api/{all}"
     }
   }
 }
