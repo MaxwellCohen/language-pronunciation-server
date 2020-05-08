@@ -9,13 +9,21 @@
       "debug": true,
       "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/index.html"
     },
-    "ng": {
+    "js": {
       "matchCondition": {
-        "route": "/{*filename}",
+        "route": "/{filename}.js",
         "methods": ["GET"]
       },
       "debug": true,
-      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}"
+      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}.js"
+    },
+    "css": {
+      "matchCondition": {
+        "route": "/{filename}.css",
+        "methods": ["GET"]
+      },
+      "debug": true,
+      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}.css"
     },
     "api": {
       "matchCondition": {
