@@ -1,9 +1,8 @@
-const {getTranslateEnvVars, getLanguageSupport} = require('..common//translate');
+const {getLanguageSupport} = require('../common/translate');
 
 module.exports = async function (context) {
   try {
-    const {endpoint, subscriptionKey} = getTranslateEnvVars();
-    const data = await getLanguageSupport(endpoint, subscriptionKey);
+    const data = await getLanguageSupport();
     context.res = {
       body: data
     };

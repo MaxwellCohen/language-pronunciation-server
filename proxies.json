@@ -3,20 +3,26 @@
   "proxies": {
     "root": {
       "matchCondition": {
-        "route": "/"
+        "route": "/",
+        "methods": ["GET"]
       },
+      "debug": true,
       "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/index.html"
     },
     "ng": {
       "matchCondition": {
-        "route": "/{rest}"
+        "route": "/{*filename}",
+        "methods": ["GET"]
       },
-      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{rest}"
+      "debug": true,
+      "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{filename}"
     },
     "api": {
       "matchCondition": {
-        "route": "/api/{*all}"
+        "route": "/api/{*all}",
+        "methods": ["GET"]
       },
+      "debug": true,
       "backendUri": "https://language-pronunciation.azurewebsites.net/api/{all}"
     }
   }
