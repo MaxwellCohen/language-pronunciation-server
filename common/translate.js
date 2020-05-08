@@ -1,22 +1,23 @@
-const { v4: uuidv4 } = require('uuid');
+const {
+  v4: uuidv4
+} = require('uuid');
 const rp = require('request-promise');
 const get = require('lodash/get');
-
-var key_var = 'TRANSLATOR_TEXT_SUBSCRIPTION_KEY';
-if (!process.env[key_var]) {
-  throw new Error('Please set/export the following environment variable: ' + key_var);
-}
-var subscriptionKey = process.env[key_var];
-var endpoint_var = 'TRANSLATOR_TEXT_ENDPOINT';
-if (!process.env[endpoint_var]) {
-  throw new Error('Please set/export the following environment variable: ' + endpoint_var);
-}
-var endpoint = process.env[endpoint_var];
+const {getTranslateEnvVars} = require('./checkEnvVars');
 
 
-function translaterate({text, language, fromScript, toScript} ) {
 
-  if(!text || !language || !fromScript || !toScript) {
+function translaterate({
+  text,
+  language,
+  fromScript,
+  toScript
+}) {
+  const {
+    endpoint,
+    subscriptionKey
+  } = getTranslateEnvVars();
+  if (!text || !language || !fromScript || !toScript) {
     return Promise.reject();
   }
 
@@ -41,14 +42,24 @@ function translaterate({text, language, fromScript, toScript} ) {
     json: true,
   };
 
-  return rp(options).then(b => ({ transliteration: b && b[0] && b[0].text}));
+  return rp(options).then(b => ({
+    transliteration: b && b[0] && b[0].text
+  }));
 }
 
-function translate({text, from, to} ) {
-  if(!text || !from || !to) {
+function translate({
+  text,
+  from,
+  to
+}) {
+
+  const {
+    endpoint,
+    subscriptionKey
+  } = getTranslateEnvVars();
+  if (!text || !from || !to) {
     return Promise.reject();
   }
-
 
   let options = {
     method: 'POST',
@@ -74,18 +85,21 @@ function translate({text, from, to} ) {
   return rp(options).then((data) => ({
     text: get(data, '[0]translations[0].text', null),
     textTransliteration: get(data, '[0]translations[0].transliteration.text', null),
-    translation: get(data, '[0]translations[1].text' , null),
+    translation: get(data, '[0]translations[1].text', null),
     translationTransliteration: get(data, '[0]translations[1].transliteration.text', null),
   }), () => ({
     text: null,
     textTransliteration: null,
     translation: null,
     translationTransliteration: null,
-  })
-  );
+  }));
 }
 
 function getLanguageSupport() {
+  const {
+    endpoint,
+    subscriptionKey
+  } = getTranslateEnvVars();
   let options = {
     method: 'GET',
     baseUrl: endpoint,
@@ -103,7 +117,7 @@ function getLanguageSupport() {
   return rp(options);
 }
 
-
+exports.getTranslateEnvVars = getTranslateEnvVars;
 exports.translate = translate;
 exports.getLanguageSupport = getLanguageSupport;
-exports.translaterate = translaterate; 
+exports.translaterate = translaterate;

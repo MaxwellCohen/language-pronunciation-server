@@ -2,11 +2,11 @@
 const xmlbuilder = require('xmlbuilder');
 // request-promise has a dependency on request
 const rp = require('request-promise');
+const {getSpeechEnvVars} = require('./checkEnvVars');
 
 
 function makebaseobject(options, header) {
-  const subscriptionKey = process.env.SPEECH_SERVICE_KEY;
-  const serviceRegion = process.env.SPEECH_SERVICE_REGION;
+  const {subscriptionKey, serviceRegion} = getSpeechEnvVars();
   const baseURL = `https://${serviceRegion}.tts.speech.microsoft.com/`;
 
   return {
@@ -19,8 +19,6 @@ function makebaseobject(options, header) {
     }
   };
 }
-
-
 
 function tts(text, lang, voice) {
   // Create the SSML request.
@@ -45,7 +43,6 @@ function tts(text, lang, voice) {
     'X-Microsoft-OutputFormat': 'riff-24khz-16bit-mono-pcm',
     'Content-Type': 'application/ssml+xml'
   }));
-
 }
 
 function ttsVoices() {
