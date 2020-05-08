@@ -12,6 +12,12 @@
         "route": "/{rest}"
       },
       "backendUri": "https://languagepronunciation.blob.core.windows.net/languagepronunciationwebpage/{rest}"
+    },
+    "api": {
+      "matchCondition": {
+        "route": "/api/{*all}"
+      },
+      "backendUri": "https://language-pronunciation.azurewebsites.net/api/{*all}"
     }
   }
 }
