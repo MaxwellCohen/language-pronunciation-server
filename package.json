@@ -6,7 +6,7 @@
   },
   "private": true,
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "uuidv4": "^6.0.7",
